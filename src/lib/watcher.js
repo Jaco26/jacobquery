@@ -7,6 +7,7 @@ export default function setWatcher(callback) {
   target = null
 }
 
+
 export class Dep {
   constructor() { 
     this.subscribers = []
@@ -25,3 +26,18 @@ export class Dep {
   }
 }
 
+
+export function createDep(obj, key) {
+  const dep = new Dep()
+  let innerValue = obj[key]
+  Object.defineProperty(obj, key, {
+    get() {
+      dep.subscribe()
+      return innerValue
+    },
+    set(val) {
+      innerValue = val
+      dep.notify()
+    }
+  })
+}

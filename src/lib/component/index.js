@@ -26,7 +26,8 @@ export default class Component {
     if (!this._render) {
       this._render = compileTemplate(this._template)
     }
-    return this._render.call(this.ctx)
+    console.log(this._render)
+    return this._render(this.ctx)
   }
 
 }

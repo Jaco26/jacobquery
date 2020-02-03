@@ -4,7 +4,8 @@ import buldDOMTree from './dom-tree'
 
 export default function compileTemplate(template) {
   const flatNodes = parseTemplate(template)
-  console.log(template)
-  console.log(flatNodes)
-  // const domNodeTree = buildDomNodeTree(template, flatNodes)
+  const domTree = buldDOMTree(flatNodes)
+  console.log('Template:', template)
+  console.log('Flat Nodes:', flatNodes)
+  console.log('DOM Tree:', domTree)
 }

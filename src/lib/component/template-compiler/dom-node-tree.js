@@ -11,16 +11,43 @@ class JacobDOMElementNode {
     this.children = []
 
     this._el = document.createElement(node.name)
-    this._directives = node.directives
+    this._directives = this._setDirectives(node.directives)
     this._staticAttrs = node.staticAttrs
     this._dynamicAttrs = node.dynamicAttrs
   }
 
+  _setDirectives(directives) {
+    return Object.keys(directives).reduce((accum, key) => {
+      if (directives[key]) {
+        const expression = new Function('return ' + directives[key])
+        accum[key] = (ctx) => expression.call(ctx)
+      }
+      return accum
+    }, {})
+  }
+
   render(ctx) {
-    this.children.forEach(child => {
-      this._el.append(child.render(ctx))
-    })
-    return this._el
+
+    const renderChildren =() => {
+      this.children.forEach(child => {
+        child = child.render(ctx)
+        if (child) {
+          this._el.append(child)
+        }
+      })
+    }
+
+    if (this._directives.jIf) {
+      if (this._directives.jIf(ctx)) {
+        renderChildren()
+        return this._el
+      }
+    } else {
+      renderChildren()
+      return this._el
+    }
+    return null
+    
   }
 }
 

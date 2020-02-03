@@ -1,4 +1,12 @@
 
+const utils = {
+  firstOr(maybeArray, defaultValue = null) {
+    if (Array.isArray(maybeArray)) {
+      return maybeArray[0]
+    }
+    return defaultValue
+  }
+}
 
 const regex = {
   tag: {
@@ -47,9 +55,9 @@ const tokenizeTag = {
   },
   directives(tag) {
     return {
-      jFor: tag.match(regex.tag.directives.jFor) || [],
-      jIf: tag.match(regex.tag.directives.jIf) || [],
-      jElse: tag.match(regex.tag.directives.jElse) || [],
+      jFor: utils.firstOr(tag.match(regex.tag.directives.jFor), '').slice(7, -1),
+      jIf: utils.firstOr(tag.match(regex.tag.directives.jIf), '').slice(6, -1),
+      jElse: utils.firstOr(tag.match(regex.tag.directives.jElse), '').slice(8, -1),
     }
   } 
 }
@@ -64,11 +72,7 @@ export class ElementNode {
     this.kind = tokenizeTag.kind(tag)
     this.directives = tokenizeTag.directives(tag)
     this.staticAttrs = tokenizeTag.staticAttrs(tag)
-    this.dynamicAttrs = tokenizeTag.dynamicAttrs(tag).filter(x => (
-      !elementNode.directives.jFor.includes(x) &&
-      !elementNode.directives.jIf.includes(x) &&
-      !elementNode.directives.jElse.includes(x)
-    ))
+    this.dynamicAttrs = tokenizeTag.dynamicAttrs(tag).filter(x => !x.startsWith('j-for') && !x.startsWith('j-if') && !x.startsWith('j-else'))
   }
 }
 

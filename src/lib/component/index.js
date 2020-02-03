@@ -1,4 +1,4 @@
-import compileTemplate from './template-compiler'
+import compileTemplate from './template-compiler/index'
 
 export default class Component {
   constructor({ name = '', props = {}, state = {}, methods = {}, computed = {}, template = '' }) {

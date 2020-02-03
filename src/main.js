@@ -13,8 +13,7 @@ const app = new Component({
   template: `
     <div>
       before the paragraph
-      <p j-for={n in 9} j-if={9 < 4} class={this.paraClass} >
-        TODO: FIX BUG IN TAG RE with "{ < }"
+      <p>
         This is a paragraph and state.name = {this.name}
       </p>
       after the paragraph

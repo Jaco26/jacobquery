@@ -1,7 +1,7 @@
 {
   "name": "offical-jacob-query",
   "version": "1.0.0",
-  "description": "",
+  "description": "A 'just for fun' attempt at something like a bare bones version of Vue or React",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack.config.js",

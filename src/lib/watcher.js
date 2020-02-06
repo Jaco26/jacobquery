@@ -8,7 +8,7 @@ export default function setWatcher(callback) {
 }
 
 
-export class Dep {
+class Dep {
   constructor() { 
     this.subscribers = []
   }
@@ -29,6 +29,7 @@ export class Dep {
 
 export function createDep(obj, key) {
   const dep = new Dep()
+  let prevValue = obj[key]
   let innerValue = obj[key]
   Object.defineProperty(obj, key, {
     get() {
@@ -37,7 +38,10 @@ export function createDep(obj, key) {
     },
     set(val) {
       innerValue = val
-      dep.notify()
+      if (innerValue !== prevValue) {
+        dep.notify()
+      }
+      prevValue = innerValue
     }
   })
 }

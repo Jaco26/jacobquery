@@ -7,7 +7,8 @@ const app = new Component({
   name: 'app',
   state: {
     name: 'jacob',
-    show: true
+    showPara: true,
+    numbers: [1, 55, 93, 32, 43],
   },
   computed: {
     upperName() {
@@ -22,10 +23,13 @@ const app = new Component({
   template: `
     <div>
       before the paragraph
-      <p class="hi" j-if={this.state.show}>
+      <p j-if={this.state.showPara}>
         This is a paragraph and state.name = {this.computed.upperName}
       </p>
       after the paragraph
+      <p j-for={n in numbers}>
+        you should see this {this.state.numbers.length} times
+      </p>
     </div>
   `
 })

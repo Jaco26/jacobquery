@@ -11,12 +11,38 @@ class JacobDOMElementNode {
     this.children = []
 
     this._el = document.createElement(node.name)
-    this._directives = this._setDirectives(node.directives)
+    this._directives = this._createDirectiveExpressions(node.directives)
     this._staticAttrs = node.staticAttrs
     this._dynamicAttrs = node.dynamicAttrs
+
+    this._sync = (ctx) => {
+      const renderChildren =() => {
+        this.children.forEach(child => {
+          child = child.render(ctx)
+          if (child) {
+            this._el.append(child)
+          }
+        })
+      }
+
+      if (this._directives.jIf) {
+        if (this._directives.jIf(ctx)) renderChildren()
+        else this._clearNativeDOMChildren()
+      } else if (this._directives.jFor) {
+        console.log('in _sync for JacobDOMElement', this._directives.jFor)
+      } else {
+        renderChildren()
+      }
+    }
   }
 
-  _setDirectives(directives) {
+  _clearNativeDOMChildren() {
+    while (this._el.firstChild) {
+      this._el.removeChild(this._el.firstChild)
+    }
+  }
+
+  _createDirectiveExpressions(directives) {
     return Object.keys(directives).reduce((accum, key) => {
       if (directives[key]) {
         const expression = new Function('return ' + directives[key])
@@ -27,59 +53,12 @@ class JacobDOMElementNode {
   }
 
   render(ctx) {
-
-    const renderChildren =() => {
-      this.children.forEach(child => {
-        child = child.render(ctx)
-        if (child) {
-          this._el.append(child)
-        }
-      })
-    }
-
-    if (this._directives.jIf) {
-      if (this._directives.jIf(ctx)) {
-        renderChildren()
-        return this._el
-      }
-    } else {
-      renderChildren()
-      return this._el
-    }
-    return null
-    
+    setWatcher(() => {
+      this._sync(ctx)
+    })
+    return this._el
   }
 }
-
-class JacobDOMTextNode {
-  /**
-   * 
-   * @param {TextNode} node 
-   */
-  constructor(node) {
-    this.kind = node.kind
-    this.value = node.value
-
-  }
-
-  render(ctx) {
-    let rv = this.value
-    if (this.kind === 'dynamic') {
-      const expression = new Function('return ' + this.value)
-      setWatcher(() => {
-        rv = expression.call(ctx)
-      })
-    }
-    return rv
-  }
-}
-
-
-/** @param {ElementNode} node */
-function handleElementNode(node) {
-
-}
-
 
 
 

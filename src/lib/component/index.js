@@ -1,5 +1,5 @@
 import compileTemplate from './template-compiler/index'
-import setWatcher, { Dep, createDep } from '../watcher'
+import setWatcher, { createDep } from '../watcher'
 
 
 function makeReactive(state) {

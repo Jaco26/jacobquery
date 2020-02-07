@@ -1,0 +1,53 @@
+@use '../variables' as v;
+
+.container {
+  display: block;
+  width: 100%;
+  padding: 0 .5rem;
+
+  // makes children take up all vertical space
+  &.flex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &.fullheight {
+    min-height: 100%;
+  }
+
+  &.fullheight-with-navbar {
+    min-height: calc(100% - #{v.$toolbar-height});
+  }
+
+  &.fullheight-with-dense-navbar {
+    min-height: calc(100% - #{v.$toolbar-dense-height});
+  }
+
+  .row {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    margin: 0 -.5rem;
+
+    .col {
+      flex: 1 1 0;
+      max-width: 100%;
+      padding: .25rem .5rem;
+
+      @each $breakpoint, $sizes in v.$breakpoint {
+        @media print, screen and (min-width: map-get($sizes, 'min')) {
+          $n-cols: 12;
+          $col: 1;
+          @while $col <= $n-cols {
+            &.#{$breakpoint}-#{$col} {
+              flex: 0 0 percentage($col / $n-cols);
+              max-width: percentage($col / $n-cols);
+            }
+            $col: $col + 1;
+          }
+        }
+      }
+    }
+
+  }
+}

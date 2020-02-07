@@ -1,0 +1,23 @@
+@use '../variables' as v;
+
+.bg-primary {
+  background-color: v.$primary;
+}
+.bg-secondary {
+  background-color: v.$secondary;
+}
+.bg-success {
+  background-color: v.$success;
+}
+.bg-danger {
+  background-color: v.$danger;
+}
+.bg-warning {
+  background-color: v.$warning;
+}
+.bg-light {
+  background-color: v.$light;
+}
+.bg-dark {
+  background-color: v.$dark;
+}

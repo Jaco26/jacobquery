@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const PostcssPresetEnv = require('postcss-preset-env')
 
 module.exports = {
   optimization: {
@@ -38,10 +39,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(sass|scss|css)/i,
+        test: /\.(sass|scss|css)$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
+          { // POSTCSS-LOADER MUST COME BEFORE SASS-LOADER
+            loader: 'postcss-loader', 
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                PostcssPresetEnv(/* pluginOptions */)
+              ]
+            }
+          },
           {
             loader: 'sass-loader',
             options: {
@@ -50,7 +60,8 @@ module.exports = {
                 fiber: false,
               }
             }
-          }
+          },
+  
         ]
       },
       {

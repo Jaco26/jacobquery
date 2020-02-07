@@ -1,0 +1,39 @@
+@use '../variables' as v;
+
+@each $breakpoint, $sizes in v.$breakpoint {
+  $min: map-get($map: $sizes, $key: 'min');
+  $max: map-get($map: $sizes, $key: 'max');
+  @media print, screen and (max-width: $min) {
+      $n-cols: 12;
+      $col: 1;
+      @while $col <= $n-cols {
+        .hidden-below-#{$breakpoint} {
+          display: none !important;
+        }
+        $col: $col + 1;
+      }
+  }
+  @if $max {
+    @media print, screen and (min-width: $min) and (max-width: $max) {
+      $n-cols: 12;
+      $col: 1;
+      @while $col <= $n-cols {
+        .hidden-#{$breakpoint} {
+          display: none !important;
+        }
+        $col: $col + 1;
+      }
+    }
+    
+    @media print, screen and (min-width: $max) {
+      $n-cols: 12;
+      $col: 1;
+      @while $col <= $n-cols {
+        .hidden-above-#{$breakpoint} {
+          display: none !important;
+        }
+        $col: $col + 1;
+      }
+    }
+  }
+}

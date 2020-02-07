@@ -15,11 +15,6 @@ const app = new Component({
       return this.state.name.toUpperCase()
     }
   },
-  methods: {
-    sayHi() {
-      return 'Hello how are you ' + this.state.name
-    }
-  },
   template: `
     <div>
       before the paragraph
@@ -35,6 +30,6 @@ const app = new Component({
 })
 
 
-document.getElementById('app').appendChild(app.render())
+// document.getElementById('app').appendChild(app.render())
 
 window.app = app

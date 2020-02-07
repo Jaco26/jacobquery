@@ -1,0 +1,51 @@
+@use '../variables' as v;
+
+@each $incr, $size in v.$spacing-increments {
+  .ma-#{$incr} {
+    margin: $size !important;
+  }
+  .mx-#{$incr} {
+    margin: 0 $size !important;
+  }
+  .my-#{$incr} {
+    margin: $size 0 !important;
+  }
+  .mt-#{$incr} {
+    margin-top: $size !important;
+  }
+  .mr-#{$incr} {
+    margin-right: $size !important;
+  }
+  .mb-#{$incr} {
+    margin-bottom: $size !important;
+  }
+  .ml-#{$incr} {
+    margin-left: $size !important;
+  }
+}
+
+@each $incr, $size in v.$spacing-increments {
+  .pa-#{$incr} {
+    padding: $size !important;
+  }
+  .px-#{$incr} {
+    padding-right: $size !important;
+    padding-left: $size !important;
+  }
+  .py-#{$incr} {
+    padding-top: $size !important;
+    padding-bottom: $size !important;
+  }
+  .pt-#{$incr} {
+    padding-top: $size !important;
+  }
+  .pr-#{$incr} {
+    padding-right: $size !important;
+  }
+  .pb-#{$incr} {
+    padding-bottom: $size !important;
+  }
+  .pl-#{$incr} {
+    padding-left: $size !important;
+  }
+}

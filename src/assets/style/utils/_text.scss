@@ -1,0 +1,33 @@
+@use '../variables' as v;
+
+.text-primary {
+  color: v.$primary;
+}
+.text-secondary {
+  color: v.$secondary;
+}
+.text-success {
+  color: v.$success;
+}
+.text-danger {
+  color: v.$danger;
+}
+.text-warning {
+  color: v.$warning;
+}
+.text-light {
+  color: v.$light;
+}
+.text-dark {
+  color: v.$dark;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}

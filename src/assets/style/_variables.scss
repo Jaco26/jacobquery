@@ -1,0 +1,38 @@
+// Breakpoint
+$breakpoint: (
+  'mobile': ('min': 0, 'max': 599px),
+  'tablet': ('min': 600px, 'max': 959px),
+  'laptop': ('min': 960px, 'max': 1263px),
+  'desktop': ('min': 1264px, 'max': 1903px),
+  'huge': ('min': 1904px),
+);
+
+// Spacing
+$spacing-increments: (
+  0: 0,
+  1: .25rem,
+  2: .5rem,
+  3: .75rem,
+  4: 1rem,
+);
+
+// Font sizes
+$title: 1.25rem;
+$normal: 1rem;
+$caption: .75rem;
+
+// Toolbar height
+$toolbar-height: 5rem;
+$toolbar-dense-height: 3rem;
+
+
+// Colors
+$primary: blue;
+$secondary: purple;
+$success: green;
+$danger: red;
+$warning: orange;
+$light: #efefef;
+$dark: #222;
+
+

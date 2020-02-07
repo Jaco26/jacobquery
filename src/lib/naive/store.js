@@ -1,6 +1,6 @@
 
 import JacobElement from './jacob-element'
-import { Dep } from '../watcher'
+import { createDep } from '../watcher'
 
 
 
@@ -11,21 +11,6 @@ export default class DataStore {
     this.debug = debug
     this.state = state
     this.mutators = {}
-
-    function createDep(object, key) {
-      const dep = new Dep()
-      let innerValue = object[key]
-      Object.defineProperty(object, key, {
-        get() {
-          dep.subscribe()
-          return innerValue
-        },
-        set(val) {
-          innerValue = val
-          dep.notify()
-        }
-      })
-    }
 
     (function traverse(object) {
       Object.keys(object).forEach(key => {
